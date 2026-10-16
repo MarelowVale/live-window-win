@@ -1,5 +1,7 @@
 # 实况窗 · Live Window for Windows
 
+中文 | [English](./README_EN.md)
+
 仿照 iOS 27 **Liquid Glass（液态玻璃）** 风格的 Windows 实况窗。常驻屏幕顶端，鼠标碰到屏幕最顶端时自动下拉展开（与联想天禧 AI 助手同款交互逻辑），可拖拽移动、固定或隐藏到顶部，内置灵动岛式 **Search or Ask**。
 
 ![style: Liquid Glass](https://img.shields.io/badge/style-Liquid%20Glass-blue) ![ios: 27](https://img.shields.io/badge/design-iOS%2027-8e8e93)
