@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+release/
+dist/
+live-window-win/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Agent / editor workspace metadata
+.workbuddy/
+.trae/
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Env
+.env
+.env.*

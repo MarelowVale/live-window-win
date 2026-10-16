@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>实况窗 · Live Window</title>
+  <link rel="stylesheet" href="vendor/highlight.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-auto" style="background:transparent">
+  <!-- SVG 图标库（SF Symbols 风格） -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.2l1.8 4.9 4.9 1.8-4.9 1.8L12 16.6l-1.8-4.9-4.9-1.8 4.9-1.8L12 3.2z" fill="currentColor" stroke="none"/><path d="M18.6 15.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8.8-2.1z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 8.4A2.4 2.4 0 0 1 5.4 6h3.1c.7 0 1.4.3 1.9.9l.9 1.1h7.3A2.4 2.4 0 0 1 21 10.4v5.2a2.4 2.4 0 0 1-2.4 2.4H5.4A2.4 2.4 0 0 1 3 15.6V8.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V6.2A2.2 2.2 0 0 1 6.2 4H8M16 4h1.8A2.2 2.2 0 0 1 20 6.2V8M20 16v1.8a2.2 2.2 0 0 1-2.2 2.2H16M8 20H6.2A2.2 2.2 0 0 1 4 17.8V16M4.5 12h15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 12h17M12 3c2.4 2.4 3.9 5.6 3.9 9s-1.5 6.6-3.9 9c-2.4-2.4-3.9-5.6-3.9-9S9.6 5.4 12 3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.2s-6.8-5.4-6.8-10.4a6.8 6.8 0 1 1 13.6 0c0 5-6.8 10.4-6.8 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 12h3M13 12h7M4 17h9M19 17h1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="7" r="2.1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="12" r="2.1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16" cy="17" r="2.1" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5.5M6 11.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M18 6.2v11.6L8.4 12 18 6.2z" fill="currentColor" stroke="none"/><path d="M6.5 6v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M6 6.2v11.6L15.6 12 6 6.2z" fill="currentColor" stroke="none"/><path d="M17.5 6v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.2 5.6v12.8L19 12 8.2 5.6z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5.5h2.6v13H8zM13.4 5.5H16v13h-2.6z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9.5 17.5V6.3l10-1.8v11" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="2.5" fill="currentColor" stroke="none"/><circle cx="17" cy="15.5" r="2.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><path d="M9.5 2.8h5M12 7.6v4.8l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="8.2" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 3.5v2M14.5 3.5v2M9.5 18.5v2M14.5 18.5v2M3.5 9.5h2M3.5 14.5h2M18.5 9.5h2M18.5 14.5h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.6 5.4v4.2h4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.4 9.4A7.6 7.6 0 1 1 4.4 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8.2V12l3 1.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 4v10M7.6 9.8L12 14.2l4.4-4.4M5 19h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M12 3.4a5.6 5.6 0 0 0-5.6 5.6c0 4.2-1.6 5.7-2.4 6.3-.5.4-.2 1.3.5 1.3h15c.7 0 1-.9.5-1.3-.8-.6-2.4-2.1-2.4-6.3A5.6 5.6 0 0 0 12 3.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.6 19.2a2.6 2.6 0 0 0 4.8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.8l4.4 4.2L19 7.2" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.4A8.4 8.4 0 0 1 9.6 4a8.4 8.4 0 1 0 10.4 10.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.6v2.4M12 19v2.4M2.6 12H5M19 12h2.4M5.4 5.4L7 7M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5.5L6.6 9H4v6h2.6L11 18.5V5.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9.6l4.4 4.8M20.4 9.6L16 14.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V5.4A1.4 1.4 0 0 1 10.9 4h2.2a1.4 1.4 0 0 1 1.4 1.4V7M6.6 7l.8 12.2A1.6 1.6 0 0 0 9 20.8h6a1.6 1.6 0 0 0 1.6-1.6L17.4 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- 浏览器预览模式下的“壁纸”，Electron 下会被隐藏，玻璃虚化真实桌面 -->
+  <div class="wallpaper" id="wallpaper"></div>
+
+  <!-- 顶端边缘提示（仅预览模式显示） -->
+  <div class="edge-hint" id="edgeHint" data-i18n="edgeHint">把鼠标移到屏幕最顶端 ↑ 唤出实况窗</div>
+
+  <!-- 灵动岛胶囊（收起态 / Dynamic Island） -->
+  <div class="island" id="island" role="button" tabindex="0" aria-label="实况窗">
+    <span class="amb" aria-hidden="true"><i data-amb="0"></i><i data-amb="1"></i></span>
+    <span class="island-grip" data-i18n-title="gripTitle" title="拖拽移动"></span>
+    <span class="island-live">
+      <span class="island-icon" id="islandIcon"><svg class="ic"><use href="#i-sparkle"/></svg></span>
+      <span class="island-txt">
+        <span class="island-title" id="islandTitle">实况窗</span>
+        <span class="island-sub" id="islandSub">触顶展开</span>
+      </span>
+    </span>
+    <button class="island-btn" id="notifBtn" data-i18n-title="notifCenterTitle" title="通知中心"><svg class="ic"><use href="#i-bell"/></svg><span class="nb-badge" id="nbBadge" hidden></span></button>
+    <button class="island-btn" id="pinBtn" data-i18n-title="pinTitle" title="固定 / 取消固定"><svg class="ic"><use href="#i-pin"/></svg></button>
+    <button class="island-btn" id="settingsBtn" data-i18n-title="settingsTitle" title="设置"><svg class="ic"><use href="#i-sliders"/></svg></button>
+  </div>
+
+  <!-- 面板 + 右侧 AI 结果（并排） -->
+  <div class="panels" id="panels">
+    <!-- 主面板 -->
+    <div class="panel glass" id="panel" aria-hidden="true">
+      <span class="amb" aria-hidden="true"><i data-amb="0"></i><i data-amb="1"></i></span>
+      <!-- Search or Ask 指令栏 -->
+      <div class="ask-bar">
+        <span class="ask-orbit"><i><svg class="ic"><use href="#i-sparkle"/></svg></i></span>
+        <input id="askInput" class="ask-input" data-i18n-placeholder="askPlaceholder" placeholder="Search or Ask · AI 问答 / 找文件" autocomplete="off" spellcheck="false" />
+        <button class="ask-send" id="askSend" data-i18n-title="sendTitle" title="发送"><svg class="ic"><use href="#i-up"/></svg></button>
+      </div>
+
+      <!-- 快捷指令回显 -->
+      <div class="ask-answer" id="askAnswer" hidden></div>
+
+      <!-- 工具按钮 -->
+      <div class="tools" id="tools">
+        <button class="tool-btn" id="fileBtn"><svg class="ic"><use href="#i-folder"/></svg><span data-i18n="findFile">找文件</span></button>
+        <button class="tool-btn" id="ocrBtn"><svg class="ic"><use href="#i-scan"/></svg><span data-i18n="grabText">截图取字</span></button>
+        <button class="tool-btn" id="translateBtn"><svg class="ic"><use href="#i-globe"/></svg><span data-i18n="translateClip">翻译剪贴板</span></button>
+      </div>
+
+      <!-- 实况活动卡片容器 -->
+      <div class="activities" id="activities"></div>
+
+      <div class="panel-foot">
+        <span class="foot-clock" id="footClock">--:--</span>
+        <span class="foot-hint" data-i18n="footHint">输入问题或指令 · 触顶展开</span>
+      </div>
+    </div>
+
+    <!-- 右侧 AI 结果面板（随回答长度增长） -->
+    <div class="chat glass" id="chat">
+      <span class="amb" aria-hidden="true"><i data-amb="0"></i><i data-amb="1"></i></span>
+      <div class="chat-head">
+        <span class="chat-title">
+          <button class="chat-hist-btn" id="chatToggleBtn" data-i18n-title="togglePanelTitle" title="收起 / 展开主面板"><svg class="ic"><use id="chatToggleUse" href="#i-prev"/></svg></button>
+          <svg class="ic"><use href="#i-sparkle"/></svg><span data-i18n="chatTitle">AI 助手</span>
+        </span>
+        <span class="chat-head-actions">
+          <span class="chat-font">
+            <button class="chat-font-btn" id="chatFontMinus" data-i18n-title="fontMinusTitle" title="减小字号">A−</button>
+            <button class="chat-font-btn" id="chatFontPlus" data-i18n-title="fontPlusTitle" title="增大字号">A+</button>
+          </span>
+          <span class="chat-status" id="chatStatus" data-i18n="statusReady">就绪</span>
+          <button class="chat-hist-btn" id="chatSettingsBtn" data-i18n-title="aiSettingsTitle" title="AI 设置"><svg class="ic"><use href="#i-sliders"/></svg></button>
+          <button class="chat-hist-btn" id="chatExportBtn" data-i18n-title="exportTitle" title="导出 Markdown"><svg class="ic"><use href="#i-export"/></svg></button>
+          <button class="chat-hist-btn" id="chatHistoryBtn" data-i18n-title="historyTitle" title="对话历史"><svg class="ic"><use href="#i-history"/></svg></button>
+        </span>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-foot">
+        <span class="chat-model" id="chatModel"></span>
+        <button class="chat-clear" id="chatClear" data-i18n="clear">清空</button>
+      </div>
+      <!-- 输入区：输入框 + 发送/停止按钮 -->
+      <div class="chat-input">
+        <textarea id="chatInput" class="chat-input-text" data-i18n-placeholder="chatInputPlaceholder" placeholder="输入问题，Enter 发送，Shift+Enter 换行" rows="1" autocomplete="off" spellcheck="false"></textarea>
+        <button class="chat-send" id="chatSend" data-i18n-title="sendTitle" title="发送"><svg class="ic"><use id="chatSendUse" href="#i-up"/></svg></button>
+      </div>
+      <!-- 对话历史浮层 -->
+      <div class="chat-history" id="chatHistory" hidden></div>
+    </div>
+  </div>
+
+  <!-- 番茄钟悬浮小岛：计时中且界面收起时出现（无图标，可暂停/加时间） -->
+  <div class="timer-float" id="timerFloat" hidden>
+    <span class="tf-time" id="tfTime">25:00</span>
+    <button class="tf-btn" id="tfPause" data-i18n-title="pause" title="暂停"><svg class="ic"><use id="tfPauseUse" href="#i-pause"/></svg></button>
+    <button class="tf-btn tf-add" id="tfAdd" data-i18n-title="tfAddTitle" title="加 5 分钟">+5</button>
+    <span class="tf-prog"><i id="tfProg"></i></span>
+  </div>
+
+  <!-- 设置面板 -->
+  <div class="modal hidden" id="settings">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span data-i18n="settingsHeader">实况窗设置</span>
+        <button class="modal-close" id="settingsClose"><svg class="ic"><use href="#i-close"/></svg></button>
+      </div>
+
+      <div class="sec-title" data-i18n="cardsSec">显示卡片（可关闭不需要的功能）</div>
+      <div class="card-toggles" id="cardToggles">
+        <label class="row"><span data-i18n="mediaCard">正在播放媒体</span><input type="checkbox" data-card="media" /></label>
+        <label class="row"><span data-i18n="timerCard">番茄钟</span><input type="checkbox" data-card="timer" /></label>
+        <label class="row"><span data-i18n="weatherCard">天气</span><input type="checkbox" data-card="weather" /></label>
+        <label class="row"><span data-i18n="systemCard">系统状态</span><input type="checkbox" data-card="system" /></label>
+        <label class="row"><span data-i18n="batteryCard">电池</span><input type="checkbox" data-card="battery" /></label>
+      </div>
+
+      <div class="sec-title" data-i18n="aiSec">AI 助手（Search or Ask）</div>
+      <label class="row col">
+        <span class="row-head"><span data-i18n="provider">服务商</span></span>
+        <select id="aiProvider">
+          <option value="deepseek">DeepSeek</option>
+          <option value="openai">OpenAI</option>
+          <option value="moonshot">Moonshot (Kimi)</option>
+          <option value="zhipu">智谱 GLM</option>
+          <option value="qwen">通义千问</option>
+          <option value="custom" data-i18n="custom">自定义</option>
+        </select>
+      </label>
+      <label class="row col">
+        <span class="row-head"><span>API Key</span></span>
+        <input type="password" id="aiKey" placeholder="sk-..." autocomplete="off" />
+      </label>
+      <label class="row col">
+        <span class="row-head"><span>Base URL</span></span>
+        <input type="text" id="aiBase" placeholder="https://api.deepseek.com/v1" autocomplete="off" />
+      </label>
+      <label class="row col">
+        <span class="row-head"><span data-i18n="model">模型</span></span>
+        <input type="text" id="aiModel" placeholder="deepseek-chat" autocomplete="off" />
+      </label>
+      <label class="row col">
+        <span class="row-head"><span data-i18n="visionModel">视觉模型（截图取字用）</span></span>
+        <input type="text" id="aiVisionModel" data-i18n-placeholder="visionPlaceholder" placeholder="留空用上方模型；如 qwen-vl-plus / glm-4v-flash / gpt-4o-mini" autocomplete="off" />
+      </label>
+      <button class="btn primary" id="aiSave" data-i18n="saveAi">保存 AI 配置</button>
+      <p class="modal-tip" id="aiTip" data-i18n="aiTip">API Key 仅保存在本机（localStorage）。支持任意 OpenAI 兼容接口。</p>
+      <label class="row">
+        <span data-i18n="ocrEngine">截图取字引擎</span>
+        <select id="optOcrEngine">
+          <option value="auto" data-i18n="ocrAuto">智能（优先 AI，无 Key 用本地）</option>
+          <option value="ai" data-i18n="ocrAi">AI 视觉识别（更准确）</option>
+          <option value="local" data-i18n="ocrLocal">Windows 本地 OCR（离线免费）</option>
+        </select>
+      </label>
+      <label class="row">
+        <span data-i18n="autoTranslate">复制文本后自动翻译</span>
+        <input type="checkbox" id="optAutoTranslate" />
+      </label>
+
+      <div class="sec-title" data-i18n="appearanceSec">外观与行为</div>
+      <label class="row">
+        <span data-i18n="language">语言 Language</span>
+        <select id="optLang">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label class="row">
+        <span data-i18n="hideToTop">隐藏到顶部（仅触顶显示）</span>
+        <input type="checkbox" id="optHidden" />
+      </label>
+      <label class="row">
+        <span data-i18n="autoStart">开机自动启动</span>
+        <input type="checkbox" id="optAutoStart" />
+      </label>
+      <label class="row col">
+        <span class="row-head"><span><span data-i18n="glassLabel">玻璃浓度</span> <i data-i18n="glassSub">Liquid Glass 透明度</i></span><span class="val" id="optGlassVal">26%</span></span>
+        <input type="range" id="optGlass" min="10" max="60" step="1" value="26" />
+      </label>
+      <label class="row">
+        <span data-i18n="ambientBg">专辑封面背景（模糊铺底）</span>
+        <input type="checkbox" id="optAmbient" />
+      </label>
+      <label class="row col">
+        <span class="row-head"><span><span data-i18n="ambientLabel">封面背景浓度</span> <i data-i18n="ambientSub">取专辑封面模糊后作为背景</i></span><span class="val" id="optAmbOpVal">55%</span></span>
+        <input type="range" id="optAmbOp" min="10" max="100" step="1" value="55" />
+      </label>
+      <label class="row">
+        <span data-i18n="theme">主题</span>
+        <select id="optTheme">
+          <option value="auto" data-i18n="themeAuto">跟随系统</option>
+          <option value="light" data-i18n="themeLight">浅色</option>
+          <option value="dark" data-i18n="themeDark">深色</option>
+        </select>
+      </label>
+      <label class="row col">
+        <span class="row-head"><span data-i18n="edgeSens">触顶灵敏度</span><span class="val"><span id="optEdgeVal">8</span> px</span></span>
+        <input type="range" id="optEdge" min="2" max="30" step="1" value="8" />
+      </label>
+      <label class="row">
+        <span data-i18n="notifLabel">通知 Notifications</span>
+        <select id="optNotif">
+          <option value="on" data-i18n="notifOn">横幅弹出</option>
+          <option value="digest" data-i18n="notifDigest">定时摘要（暂不弹出）</option>
+          <option value="off" data-i18n="notifOff">关闭</option>
+        </select>
+      </label>
+      <p class="modal-tip" data-i18n="notifTip">「定时摘要」会把新通知先收进通知中心，稍后一起查看，适合专注工作时使用；关闭后仅番茄钟完成时提醒。</p>
+
+      <div class="row btns">
+        <button class="btn" id="optReset" data-i18n="resetPos">重置位置</button>
+        <button class="btn danger" id="optQuit" data-i18n="quit">退出</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知横幅堆叠（iOS 27 顶部居中 Liquid Glass 横幅） -->
+  <div class="nb-stack" id="nbStack" hidden></div>
+
+  <!-- 通知中心（按 App 分组 + 全部清除） -->
+  <div class="nc-panel" id="ncPanel" role="dialog" aria-modal="false" hidden>
+    <div class="nc-head">
+      <span class="nc-title"><svg class="ic"><use href="#i-bell"/></svg><span data-i18n="notifCenterTitle">通知中心</span></span>
+      <span class="nc-head-actions">
+        <button class="nc-dnd" id="ncDnd" data-i18n-title="dndTitle" title="勿扰模式"><svg class="ic"><use href="#i-moon"/></svg><span data-i18n="dnd">勿扰</span></button>
+        <button class="nc-clear" id="ncClear" data-i18n="clearAll">全部清除</button>
+      </span>
+    </div>
+    <p class="nc-mode-hint hidden" id="ncModeHint" data-i18n="notifTipDigest">当前为定时摘要模式：新通知会先收在这里，不会弹出横幅。</p>
+    <div class="nc-list" id="ncList"></div>
+  </div>
+
+  <!-- 截图选区覆盖层 -->
+  <div class="screenshot" id="screenshot" hidden>
+    <div class="ss-hint" data-i18n="ssHint">拖动框选要识别的区域 · Esc 取消</div>
+    <div class="ss-box" id="ssBox" hidden></div>
+  </div>
+
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/purify.min.js"></script>
+  <script src="vendor/highlight.min.js"></script>
+  <script src="data.js"></script>
+  <script src="i18n.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
